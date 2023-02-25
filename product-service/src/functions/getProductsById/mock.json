@@ -2,5 +2,6 @@
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"name\": \"Frederic\"}"
+  "pathParameters": { "productId": "8" },
+  "body": null
 }
