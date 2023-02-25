@@ -7,11 +7,12 @@ export default {
       http: {
         method: "get",
         path: "products",
-        responses: {
+        responseData: {
           200: {
             description: "successful API Responce",
             bodyType: "Products",
           },
+          500: "Internal Server Error",
         },
       },
     },

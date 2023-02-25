@@ -1,5 +1,5 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse } from "@libs/api-gateway";
+import { formatJSONResponse, formatErrorResponse } from "@libs/api-gateway";
 import { middyfy } from "@libs/lambda";
 import { asyncPipe, mapProduct } from "@functions/helpers";
 import { getById } from "./helpers";
@@ -8,15 +8,40 @@ import { Product } from "@functions/types";
 const getProductsById = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  const res: Product = await asyncPipe(
-    getById,
-    mapProduct
-  )(event?.pathParameters?.productId);
+  try {
+    const res: Product = await asyncPipe(
+      getById,
+      mapProduct
+    )(event?.pathParameters?.productId);
 
-  return formatJSONResponse({
-    message: res,
-    event,
-  });
+    if (res.id) {
+      return formatJSONResponse({
+        message: res,
+        event,
+      });
+    }
+
+    return formatErrorResponse(404, "Product not found");
+  } catch (error) {
+    console.log(error);
+
+    return formatErrorResponse(500, "Internal Server Error");
+  }
 };
+
+// try {
+//   const {
+//     pathParameters: { productId = '' },
+//   } = event;
+//   const { products } = await getAvailableProducts();
+//   const productById = products.find((product) => product.id.toLowerCase() === productId.toLowerCase());
+//   if (productById) {
+//     return formatJSONSuccessResponse({ product: productById });
+//   }
+//   return formatErrorResponse(404, 'Product not found');
+// } catch (error: unknown) {
+//   console.log('The internal error occurred: ', error);
+//   return formatErrorResponse(500, 'Server Internal Error');
+// }
 
 export const main = middyfy(getProductsById);

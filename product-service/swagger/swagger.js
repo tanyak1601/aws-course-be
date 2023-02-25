@@ -49,7 +49,10 @@
         ],
         "responses": {
           "200": {
-            "description": "200 response"
+            "description": "successful API Responce",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
           }
         }
       }
