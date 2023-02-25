@@ -17,5 +17,6 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "ignorePatterns": ["swagger/**"]
 }

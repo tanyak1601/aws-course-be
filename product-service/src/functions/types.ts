@@ -6,6 +6,8 @@ export type Product = {
   image: string;
 };
 
+export type Products = Product[];
+
 export type RawProduct = {
   id: number;
   title: string;
