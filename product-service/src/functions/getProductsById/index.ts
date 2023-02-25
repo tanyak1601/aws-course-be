@@ -7,6 +7,7 @@ export default {
       http: {
         method: 'get',
         path: '/products/{productId}',
+        cors: true,
         responseData: {
           200: {
             description: 'successful API Responce',

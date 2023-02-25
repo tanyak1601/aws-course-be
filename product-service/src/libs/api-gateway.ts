@@ -16,13 +16,21 @@ export type ValidatedEventAPIGatewayProxyEvent<S> = Handler<
 export const formatJSONResponse = (response: Record<string, unknown>) => {
   return {
     statusCode: 200,
-    body: JSON.stringify(response),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
+    body: JSON.stringify(response?.message),
   };
 };
 
 export const formatErrorResponse = (statusCode: number, message: string) => {
   return {
     statusCode,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
     body: JSON.stringify({ message }),
   };
 };
