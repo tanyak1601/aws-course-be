@@ -18,5 +18,13 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["swagger/**"]
+  "ignorePatterns": ["swagger/**"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true },
+      { "usePrettierrc": false }
+    ],
+    "quotes": [2, "single", { "avoidEscape": true }]
+  }
 }

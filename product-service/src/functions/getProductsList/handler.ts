@@ -1,11 +1,11 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { formatJSONResponse, formatErrorResponse } from "@libs/api-gateway";
-import { middyfy } from "@libs/lambda";
-import { RawProduct } from "@functions/types";
-import { mapProduct } from "@functions//helpers";
-import { getList } from "./helpers";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { formatJSONResponse, formatErrorResponse } from 'libs/api-gateway';
+import { middyfy } from 'libs/lambda';
+import { RawProduct } from 'functions/types';
+import { mapProduct } from 'functions//helpers';
+import { getList } from './helpers';
 
-const getProductsList = async (
+export const getProductsList = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
@@ -18,7 +18,7 @@ const getProductsList = async (
   } catch (error) {
     console.log(error);
 
-    return formatErrorResponse(500, "Internal Server Error");
+    return formatErrorResponse(500, 'Internal Server Error');
   }
 };
 

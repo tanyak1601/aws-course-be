@@ -1,19 +1,19 @@
-import { handlerPath } from "@libs/handler-resolver";
+import { handlerPath } from '@libs/handler-resolver';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
   events: [
     {
       http: {
-        method: "get",
-        path: "/products/{productId}",
+        method: 'get',
+        path: '/products/{productId}',
         responseData: {
           200: {
-            description: "successful API Responce",
-            bodyType: "Product",
+            description: 'successful API Responce',
+            bodyType: 'Product',
           },
-          404: "Product not found",
-          500: "Internal Server Error",
+          404: 'Product not found',
+          500: 'Internal Server Error',
         },
       },
     },

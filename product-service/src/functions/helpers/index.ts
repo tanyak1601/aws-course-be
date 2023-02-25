@@ -1,2 +1,2 @@
-export { mapProduct } from "./product.mapper";
-export { asyncPipe } from "./asyncPipe";
+export { mapProduct } from './product.mapper';
+export { asyncPipe } from './asyncPipe';

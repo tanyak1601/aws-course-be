@@ -11,6 +11,7 @@
     "outDir": "lib",
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": ["jest", "node"],
   },
   "include": ["src/**/*.ts", "serverless.ts"],
   "exclude": [
