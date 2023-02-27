@@ -12,7 +12,7 @@
     "deploy:getProductsById": "sls deploy function -f getProductsById",
     "invoke:local:getProductsList": "sls invoke local -f getProductsList --path src/functions/getProductsList/mock.json",
     "invoke:local:getProductsById": "sls invoke local -f getProductsById --path src/functions/getProductsById/mock.json",
-    "start:offline": "sls offline"
+    "start:offline": "sls offline start"
   },
   "engines": {
     "node": ">=14.15.0"

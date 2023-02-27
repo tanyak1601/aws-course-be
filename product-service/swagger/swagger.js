@@ -194,5 +194,9 @@
       "type": "object"
     }
   },
-  "securityDefinitions": {}
+  "securityDefinitions": {},
+  "host": "82or31sgi6.execute-api.eu-west-1.amazonaws.com/dev",
+  "schemes": [
+    "https"
+  ]
 };
