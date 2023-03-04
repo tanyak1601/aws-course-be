@@ -18,9 +18,12 @@ const defaultHeaders: Record<string, boolean | number | string> = {
   'Access-Control-Allow-Credentials': true,
 };
 
-export const formatJSONResponse = (response: Record<string, unknown>) => {
+export const formatJSONResponse = (
+  response: Record<string, unknown>,
+  statusCode = 200
+) => {
   return {
-    statusCode: 200,
+    statusCode,
     headers: { ...defaultHeaders },
     body: JSON.stringify(response?.message),
   };

@@ -48,12 +48,37 @@ const queryStock = async (product_id: string): Promise<StocksItem> => {
   return res.Items?.[0] as StocksItem;
 };
 
-export const scanProductsResult = async (): Promise<ProductInfo[]> => {
+export const getProducts = async (): Promise<ProductInfo[]> => {
   const res = await Promise.all([scanProducts(), scanStocks()]);
   return mapProductsResult(...res);
 };
 
-export const queryProductResult = async (id: string): Promise<ProductInfo> => {
+export const getProduct = async (id: string): Promise<ProductInfo> => {
   const res = await Promise.all([queryProduct(id), queryStock(id)]);
   return mapProductResult(...res);
+};
+
+export const addProduct = async ([product, stock]: [
+  Product,
+  StocksItem
+]): Promise<ProductInfo> => {
+  await dynamodb
+    .transactWrite({
+      TransactItems: [
+        {
+          Put: {
+            Item: product,
+            TableName: process.env.PRODUCTS_TABLE_NAME,
+          },
+        },
+        {
+          Put: {
+            Item: stock,
+            TableName: process.env.STOCKS_TABLE_NAME,
+          },
+        },
+      ],
+    })
+    .promise();
+  return mapProductResult(product, stock);
 };

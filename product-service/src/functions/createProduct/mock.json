@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "pathParameters": { "productId": "657c95f6-ab5e-4af2-a944-82d81708b6e5" },
+  "body": "{\"title\":\"test\",\"description\":\"test-test\",\"count\":4,\"price\":100,\"image\":\"https://api.lorem.space/image/shoes?w=640&h=480&r=9487\"}"
+}

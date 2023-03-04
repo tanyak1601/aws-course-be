@@ -1,5 +1,13 @@
+export interface ProductPayload {
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+  count: number;
+}
+
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
@@ -13,6 +21,11 @@ export type StocksItem = {
   count: number;
 };
 
-export interface ProductInfo extends Product {
+export interface ProductInfo {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
   count: number;
 }

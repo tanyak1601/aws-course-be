@@ -1,8 +1,8 @@
 import { getProductsList } from './handler';
-import { scanProductsResult } from '../handlers';
+import { getProducts } from '../handlers';
 
 jest.mock('../handlers', () => ({
-  scanProductsResult: jest.fn(),
+  getProducts: jest.fn(),
 }));
 
 describe('getProductsList', () => {
@@ -66,7 +66,7 @@ describe('getProductsList', () => {
         },
       },
     ];
-    (scanProductsResult as jest.Mock).mockReturnValueOnce(
+    (getProducts as jest.Mock).mockReturnValueOnce(
       Promise.resolve(productsInfo)
     );
     const res = await getProductsList(baseEvent);
@@ -75,9 +75,7 @@ describe('getProductsList', () => {
   });
 
   it('should return Internal Server Error', async () => {
-    (scanProductsResult as jest.Mock).mockRejectedValueOnce(
-      Promise.reject('error')
-    );
+    (getProducts as jest.Mock).mockRejectedValueOnce(Promise.reject('error'));
     const res = await getProductsList(baseEvent);
     expect(res.statusCode).toEqual(500);
     expect(res.body).toEqual('{"message":"Internal Server Error"}');

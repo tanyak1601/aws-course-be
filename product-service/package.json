@@ -10,8 +10,10 @@
     "deploy": "sls deploy",
     "deploy:getProductsList": "sls deploy function -f getProductsList",
     "deploy:getProductsById": "sls deploy function -f getProductsById",
+    "deploy:createProduct": "sls deploy function -f createProduct",
     "invoke:local:getProductsList": "sls invoke local -f getProductsList --path src/functions/getProductsList/mock.json",
     "invoke:local:getProductsById": "sls invoke local -f getProductsById --path src/functions/getProductsById/mock.json",
+    "invoke:local:createProduct": "sls invoke local -f createProduct --path src/functions/createProduct/mock.json",
     "start:offline": "sls offline start"
   },
   "engines": {

@@ -1,8 +1,8 @@
 import { getProductsById } from './handler';
-import { queryProductResult } from '../handlers';
+import { getProduct } from '../handlers';
 
 jest.mock('../handlers', () => ({
-  queryProductResult: jest.fn(),
+  getProduct: jest.fn(),
 }));
 
 describe('getProductsById', () => {
@@ -32,27 +32,21 @@ describe('getProductsById', () => {
       count: 2,
     };
 
-    (queryProductResult as jest.Mock).mockReturnValue(
-      Promise.resolve(productInfo)
-    );
+    (getProduct as jest.Mock).mockReturnValue(Promise.resolve(productInfo));
     const res = await getProductsById(baseEvent);
     expect(res.statusCode).toEqual(200);
     expect(JSON.parse(res.body)).toEqual(productInfo);
   });
 
   it('should return Product not found', async () => {
-    (queryProductResult as jest.Mock).mockReturnValue(
-      Promise.resolve(undefined)
-    );
+    (getProduct as jest.Mock).mockReturnValue(Promise.resolve(undefined));
     const res = await getProductsById(baseEvent);
     expect(res.statusCode).toEqual(404);
     expect(res.body).toEqual('{"message":"Product not found"}');
   });
 
   it('should return Internal Server Error', async () => {
-    (queryProductResult as jest.Mock).mockRejectedValueOnce(
-      Promise.reject('error')
-    );
+    (getProduct as jest.Mock).mockRejectedValueOnce(Promise.reject('error'));
     const res = await getProductsById(baseEvent);
     expect(res.statusCode).toEqual(500);
     expect(res.body).toEqual('{"message":"Internal Server Error"}');
