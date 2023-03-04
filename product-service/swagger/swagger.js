@@ -110,87 +110,37 @@
       "title": "Products.[]",
       "type": "array"
     },
-    "RawProduct": {
+    "StocksItem": {
       "properties": {
-        "id": {
-          "title": "RawProduct.id",
+        "product_id": {
+          "title": "StocksItem.product_id",
+          "type": "string"
+        },
+        "count": {
+          "title": "StocksItem.count",
           "type": "number"
-        },
-        "title": {
-          "title": "RawProduct.title",
-          "type": "string"
-        },
-        "price": {
-          "title": "RawProduct.price",
-          "type": "number"
-        },
-        "description": {
-          "title": "RawProduct.description",
-          "type": "string"
-        },
-        "images": {
-          "items": {
-            "title": "RawProduct.images.[]",
-            "type": "string"
-          },
-          "title": "RawProduct.images",
-          "type": "array"
-        },
-        "creationAt": {
-          "title": "RawProduct.creationAt",
-          "type": "string"
-        },
-        "updatedAt": {
-          "title": "RawProduct.updatedAt",
-          "type": "string"
-        },
-        "category": {
-          "properties": {
-            "id": {
-              "title": "RawProduct.category.id",
-              "type": "number"
-            },
-            "name": {
-              "title": "RawProduct.category.name",
-              "type": "string"
-            },
-            "image": {
-              "title": "RawProduct.category.image",
-              "type": "string"
-            },
-            "creationAt": {
-              "title": "RawProduct.category.creationAt",
-              "type": "string"
-            },
-            "updatedAt": {
-              "title": "RawProduct.category.updatedAt",
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "image",
-            "creationAt",
-            "updatedAt"
-          ],
-          "additionalProperties": false,
-          "title": "RawProduct.category",
-          "type": "object"
         }
       },
       "required": [
-        "id",
-        "title",
-        "price",
-        "description",
-        "images",
-        "creationAt",
-        "updatedAt",
-        "category"
+        "product_id",
+        "count"
       ],
       "additionalProperties": false,
-      "title": "RawProduct",
+      "title": "StocksItem",
+      "type": "object"
+    },
+    "ProductInfo": {
+      "properties": {
+        "count": {
+          "title": "ProductInfo.count",
+          "type": "number"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "additionalProperties": false,
+      "title": "ProductInfo",
       "type": "object"
     }
   },
