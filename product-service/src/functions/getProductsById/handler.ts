@@ -1,18 +1,16 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { formatJSONResponse, formatErrorResponse } from 'libs/api-gateway';
 import { middyfy } from 'libs/lambda';
-import { asyncPipe, mapProduct } from 'functions/helpers';
-import { getById } from './helpers';
 import { Product } from 'functions/types';
+import { queryProductResult } from 'functions/handlers';
 
 export const getProductsById = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
-    const res: Product = await asyncPipe(
-      getById,
-      mapProduct
-    )(event?.pathParameters?.productId);
+    const res: Product = await queryProductResult(
+      event.pathParameters.productId
+    );
 
     if (res) {
       return formatJSONResponse({

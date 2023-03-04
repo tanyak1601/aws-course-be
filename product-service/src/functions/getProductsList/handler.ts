@@ -1,18 +1,17 @@
+import { scanProductsResult } from './../handlers/index';
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { formatJSONResponse, formatErrorResponse } from 'libs/api-gateway';
 import { middyfy } from 'libs/lambda';
-import { RawProduct } from 'functions/types';
-import { mapProduct } from 'functions//helpers';
-import { getList } from './helpers';
+import { ProductInfo } from 'functions/types';
 
 export const getProductsList = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
-    const products: RawProduct[] = await getList();
+    const products: ProductInfo[] = await scanProductsResult();
 
     return formatJSONResponse({
-      message: products.map(mapProduct),
+      message: products,
       event,
     });
   } catch (error) {

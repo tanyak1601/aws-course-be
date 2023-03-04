@@ -18,4 +18,8 @@ export default {
       },
     },
   ],
+  environment: {
+    PRODUCTS_TABLE_NAME: process.env.PRODUCTS_TABLE_NAME,
+    STOCKS_TABLE_NAME: process.env.STOCKS_TABLE_NAME,
+  },
 };
