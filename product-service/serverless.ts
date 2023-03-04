@@ -26,6 +26,13 @@ const serverlessConfiguration: AWS = {
       PRODUCTS_TABLE_NAME: '${env:PRODUCTS_TABLE_NAME}',
       STOCKS_TABLE_NAME: '${env:STOCKS_TABLE_NAME}',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: 'dynamodb:*',
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/*',
+      },
+    ],
   },
 
   functions: { getProductsList, getProductsById },
