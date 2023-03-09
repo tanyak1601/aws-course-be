@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 import getProductsList from 'functions/getProductsList';
 import getProductsById from 'functions/getProductsById';
+import createProduct from 'functions/createProduct';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -10,6 +11,7 @@ const serverlessConfiguration: AWS = {
     'serverless-esbuild',
     'serverless-offline',
   ],
+  useDotenv: true,
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -22,10 +24,19 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      PRODUCTS_TABLE_NAME: '${env:PRODUCTS_TABLE_NAME}',
+      STOCKS_TABLE_NAME: '${env:STOCKS_TABLE_NAME}',
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: 'dynamodb:*',
+        Resource: 'arn:aws:dynamodb:${self:provider.region}:*:table/*',
+      },
+    ],
   },
 
-  functions: { getProductsList, getProductsById },
+  functions: { getProductsList, getProductsById, createProduct },
   package: {
     individually: true,
     excludeDevDependencies: true,

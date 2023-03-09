@@ -10,8 +10,10 @@
     "deploy": "sls deploy",
     "deploy:getProductsList": "sls deploy function -f getProductsList",
     "deploy:getProductsById": "sls deploy function -f getProductsById",
+    "deploy:createProduct": "sls deploy function -f createProduct",
     "invoke:local:getProductsList": "sls invoke local -f getProductsList --path src/functions/getProductsList/mock.json",
     "invoke:local:getProductsById": "sls invoke local -f getProductsById --path src/functions/getProductsById/mock.json",
+    "invoke:local:createProduct": "sls invoke local -f createProduct --path src/functions/createProduct/mock.json",
     "start:offline": "sls offline start"
   },
   "engines": {
@@ -19,7 +21,8 @@
   },
   "dependencies": {
     "@middy/core": "^3.4.0",
-    "@middy/http-json-body-parser": "^3.4.0"
+    "@middy/http-json-body-parser": "^3.4.0",
+    "aws-sdk": "^2.1326.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",
@@ -28,6 +31,7 @@
     "@types/node": "^18.14.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "dotenv": "^16.0.3",
     "esbuild": "^0.14.11",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
@@ -42,7 +46,8 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "uuid": "^9.0.0"
   },
   "author": "",
   "license": "MIT"

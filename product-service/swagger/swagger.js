@@ -29,6 +29,42 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "summary": "createProduct",
+        "description": "",
+        "operationId": "createProduct.post./products",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Body required in the request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductPayload"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful API Responce",
+            "schema": {
+              "$ref": "#/definitions/ProductInfo"
+            }
+          },
+          "404": {
+            "description": "Invalid product data"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/products/{productId}": {
@@ -68,11 +104,45 @@
     }
   },
   "definitions": {
+    "ProductPayload": {
+      "properties": {
+        "title": {
+          "title": "ProductPayload.title",
+          "type": "string"
+        },
+        "price": {
+          "title": "ProductPayload.price",
+          "type": "number"
+        },
+        "description": {
+          "title": "ProductPayload.description",
+          "type": "string"
+        },
+        "image": {
+          "title": "ProductPayload.image",
+          "type": "string"
+        },
+        "count": {
+          "title": "ProductPayload.count",
+          "type": "number"
+        }
+      },
+      "required": [
+        "title",
+        "price",
+        "description",
+        "image",
+        "count"
+      ],
+      "additionalProperties": false,
+      "title": "ProductPayload",
+      "type": "object"
+    },
     "Product": {
       "properties": {
         "id": {
           "title": "Product.id",
-          "type": "number"
+          "type": "string"
         },
         "title": {
           "title": "Product.title",
@@ -110,73 +180,50 @@
       "title": "Products.[]",
       "type": "array"
     },
-    "RawProduct": {
+    "StocksItem": {
+      "properties": {
+        "product_id": {
+          "title": "StocksItem.product_id",
+          "type": "string"
+        },
+        "count": {
+          "title": "StocksItem.count",
+          "type": "number"
+        }
+      },
+      "required": [
+        "product_id",
+        "count"
+      ],
+      "additionalProperties": false,
+      "title": "StocksItem",
+      "type": "object"
+    },
+    "ProductInfo": {
       "properties": {
         "id": {
-          "title": "RawProduct.id",
-          "type": "number"
+          "title": "ProductInfo.id",
+          "type": "string"
         },
         "title": {
-          "title": "RawProduct.title",
+          "title": "ProductInfo.title",
           "type": "string"
         },
         "price": {
-          "title": "RawProduct.price",
+          "title": "ProductInfo.price",
           "type": "number"
         },
         "description": {
-          "title": "RawProduct.description",
+          "title": "ProductInfo.description",
           "type": "string"
         },
-        "images": {
-          "items": {
-            "title": "RawProduct.images.[]",
-            "type": "string"
-          },
-          "title": "RawProduct.images",
-          "type": "array"
-        },
-        "creationAt": {
-          "title": "RawProduct.creationAt",
+        "image": {
+          "title": "ProductInfo.image",
           "type": "string"
         },
-        "updatedAt": {
-          "title": "RawProduct.updatedAt",
-          "type": "string"
-        },
-        "category": {
-          "properties": {
-            "id": {
-              "title": "RawProduct.category.id",
-              "type": "number"
-            },
-            "name": {
-              "title": "RawProduct.category.name",
-              "type": "string"
-            },
-            "image": {
-              "title": "RawProduct.category.image",
-              "type": "string"
-            },
-            "creationAt": {
-              "title": "RawProduct.category.creationAt",
-              "type": "string"
-            },
-            "updatedAt": {
-              "title": "RawProduct.category.updatedAt",
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "image",
-            "creationAt",
-            "updatedAt"
-          ],
-          "additionalProperties": false,
-          "title": "RawProduct.category",
-          "type": "object"
+        "count": {
+          "title": "ProductInfo.count",
+          "type": "number"
         }
       },
       "required": [
@@ -184,13 +231,11 @@
         "title",
         "price",
         "description",
-        "images",
-        "creationAt",
-        "updatedAt",
-        "category"
+        "image",
+        "count"
       ],
       "additionalProperties": false,
-      "title": "RawProduct",
+      "title": "ProductInfo",
       "type": "object"
     }
   },

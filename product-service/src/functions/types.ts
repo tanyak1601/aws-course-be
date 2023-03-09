@@ -1,26 +1,31 @@
-export type Product = {
-  id: number;
+export interface ProductPayload {
   title: string;
   price: number;
   description: string;
   image: string;
-};
+  count: number;
+}
 
-export type Products = Product[];
-
-export type RawProduct = {
-  id: number;
+export interface Product {
+  id: string;
   title: string;
   price: number;
   description: string;
-  images: string[];
-  creationAt: string;
-  updatedAt: string;
-  category: {
-    id: number;
-    name: string;
-    image: string;
-    creationAt: string;
-    updatedAt: string;
-  };
+  image: string;
+}
+
+export type Products = Product[];
+
+export type StocksItem = {
+  product_id: string;
+  count: number;
 };
+
+export interface ProductInfo {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
+  count: number;
+}
