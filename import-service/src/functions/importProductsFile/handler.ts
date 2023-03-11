@@ -6,10 +6,10 @@ import { Operations } from 'functions/types';
 import {
   CSV_CONTENT_TYPE,
   EXPIRE_PERIOD,
-  UPLOADED_FOLDER,
+  UPLOADED_PREFIX,
 } from 'functions/constants';
 
-export const getProductsList = async (
+export const importProductsFile = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
@@ -22,12 +22,10 @@ export const getProductsList = async (
 
     const url = s3.getSignedUrl(Operations.PUT_OBJECT, {
       Bucket: process.env.IMPORT_SERVICE_BUCKET_NAME,
-      Key: `${UPLOADED_FOLDER}/${fileName}`,
+      Key: `${UPLOADED_PREFIX}/${fileName}`,
       Expires: EXPIRE_PERIOD,
       ContentType: CSV_CONTENT_TYPE,
     });
-
-    console.log(url);
 
     return formatJSONResponse({
       message: url,
@@ -39,4 +37,4 @@ export const getProductsList = async (
   }
 };
 
-export const main = middyfy(getProductsList);
+export const main = middyfy(importProductsFile);
