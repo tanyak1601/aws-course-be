@@ -11,8 +11,6 @@ export const getProductsById = async (
   try {
     logRequest(event);
 
-    console.log('@@@@@', event);
-
     const res: Product = await getProduct(event.pathParameters.productId);
 
     if (res) {
