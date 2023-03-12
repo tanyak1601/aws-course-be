@@ -1,12 +1,12 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from 'functions/hello';
 import importProductsFile from 'functions/importProductsFile';
+import importFileParser from 'functions/importFileParser';
 
 const serverlessConfiguration: AWS = {
   service: 'import-service',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: ['serverless-esbuild', 'serverless-offline'],
   useDotenv: true,
   provider: {
     name: 'aws',
@@ -27,16 +27,18 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: 's3:ListBucket',
-        Resource: 'arn:aws:s3:::${env:IMPORT_SERVICE_BUCKET_NAME}',
+        Resource:
+          'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}',
       },
       {
         Effect: 'Allow',
         Action: 's3:*',
-        Resource: 'arn:aws:s3:::${env:IMPORT_SERVICE_BUCKET_NAME}/*',
+        Resource:
+          'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}/*',
       },
     ],
   },
-  functions: { hello, importProductsFile },
+  functions: { importProductsFile, importFileParser },
   package: { individually: true },
   custom: {
     esbuild: {

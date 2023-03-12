@@ -20,7 +20,7 @@ export const importProductsFile = async (
       return formatErrorResponse(400, 'Bad Request');
     }
 
-    const url = s3.getSignedUrl(Operations.PUT_OBJECT, {
+    const url = await s3.getSignedUrlPromise(Operations.PUT_OBJECT, {
       Bucket: process.env.IMPORT_SERVICE_BUCKET_NAME,
       Key: `${UPLOADED_PREFIX}/${fileName}`,
       Expires: EXPIRE_PERIOD,

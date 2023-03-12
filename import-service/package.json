@@ -9,6 +9,7 @@
     "prettier": "prettier src --write",
     "deploy": "sls deploy",
     "deploy:importProductsFile": "sls deploy function -f importProductsFile",
+    "deploy:importFileParser": "sls deploy function -f importFileParser",
     "invoke:local:importProductsFile": "sls invoke local -f importProductsFile --path src/functions/importProductsFile/mock.json",
     "start:offline": "sls offline start"
   },
@@ -28,6 +29,8 @@
     "@types/node": "^18.14.1",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
+    "aws-sdk-mock": "^5.8.0",
+    "dotenv": "^16.0.3",
     "esbuild": "^0.14.11",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
