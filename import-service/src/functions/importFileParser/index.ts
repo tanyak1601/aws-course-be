@@ -2,7 +2,7 @@ import { UPLOADED_PREFIX } from 'functions/constants';
 import { handlerPath } from 'libs/handler-resolver';
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.main`,
+  handler: `${handlerPath(__dirname)}/handler.importFileParser`,
   events: [
     {
       s3: {

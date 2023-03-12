@@ -22,7 +22,7 @@ export const importProductsFile = async (
 
     const url = await s3.getSignedUrlPromise(Operations.PUT_OBJECT, {
       Bucket: process.env.IMPORT_SERVICE_BUCKET_NAME,
-      Key: `${UPLOADED_PREFIX}/${fileName}`,
+      Key: `${UPLOADED_PREFIX}${fileName}`,
       Expires: EXPIRE_PERIOD,
       ContentType: CSV_CONTENT_TYPE,
     });
