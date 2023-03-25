@@ -11,6 +11,7 @@
     "deploy:getProductsList": "sls deploy function -f getProductsList",
     "deploy:getProductsById": "sls deploy function -f getProductsById",
     "deploy:createProduct": "sls deploy function -f createProduct",
+    "deploy:catalogBatchProcess": "sls deploy function -f catalogBatchProcess",
     "invoke:local:getProductsList": "sls invoke local -f getProductsList --path src/functions/getProductsList/mock.json",
     "invoke:local:getProductsById": "sls invoke local -f getProductsById --path src/functions/getProductsById/mock.json",
     "invoke:local:createProduct": "sls invoke local -f createProduct --path src/functions/createProduct/mock.json",

@@ -22,21 +22,32 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       REGION: '${env:REGION}',
       IMPORT_SERVICE_BUCKET_NAME: '${env:IMPORT_SERVICE_BUCKET_NAME}',
+      SQS_URL: '${env:SQS_URL}',
+      SQS_ARN: '${env:SQS_ARN}',
     },
-    iamRoleStatements: [
-      {
-        Effect: 'Allow',
-        Action: 's3:ListBucket',
-        Resource:
-          'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}',
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: 'Allow',
+            Action: 's3:ListBucket',
+            Resource:
+              'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}',
+          },
+          {
+            Effect: 'Allow',
+            Action: 's3:*',
+            Resource:
+              'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}/*',
+          },
+          {
+            Effect: 'Allow',
+            Action: 'sqs:*',
+            Resource: '${self:provider.environment.SQS_ARN}',
+          },
+        ],
       },
-      {
-        Effect: 'Allow',
-        Action: 's3:*',
-        Resource:
-          'arn:aws:s3:::${self:provider.environment.IMPORT_SERVICE_BUCKET_NAME}/*',
-      },
-    ],
+    },
   },
   functions: { importProductsFile, importFileParser },
   package: { individually: true },
