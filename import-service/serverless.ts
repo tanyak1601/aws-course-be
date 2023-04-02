@@ -24,6 +24,7 @@ const serverlessConfiguration: AWS = {
       IMPORT_SERVICE_BUCKET_NAME: '${env:IMPORT_SERVICE_BUCKET_NAME}',
       SQS_URL: '${env:SQS_URL}',
       SQS_ARN: '${env:SQS_ARN}',
+      BASIC_AUTHORIZER_ARN: '${env:BASIC_AUTHORIZER_ARN}',
     },
     iam: {
       role: {
