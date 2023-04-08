@@ -37,6 +37,7 @@ const fillTables = async (): Promise<void> => {
     `)
     await client.query(`
       create table if not exists cart_items (
+        id uuid default uuid_generate_v4() primary key,
         cart_id uuid,
         product_id uuid,
         count integer,

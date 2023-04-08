@@ -1,31 +1,37 @@
 import { Injectable } from '@nestjs/common';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { v4 } from 'uuid';
 
-import { Cart } from '../models';
+import { Status } from '../../shared';
+import { Carts } from '../entities'
 
 @Injectable()
 export class CartService {
-  private userCarts: Record<string, Cart> = {};
+  constructor(
+    @InjectRepository(Carts)
+    private readonly userCarts: Repository<Carts>,
+  ) {}
 
-  findByUserId(userId: string): Cart {
-    return this.userCarts[ userId ];
+  async findByUserId(userId: string): Promise<Carts> {
+    return this.userCarts.findOne({ where: { userId }, relations: ['cartItems'] });
   }
 
-  createByUserId(userId: string) {
+  async createByUserId(userId: string): Promise<Carts> {
     const id = v4(v4());
     const userCart = {
       id,
-      items: [],
+      userId,
+      status: Status.OPEN
     };
 
-    this.userCarts[ userId ] = userCart;
+    const res = await this.userCarts.save(userCart)
 
-    return userCart;
+    return res;
   }
 
-  findOrCreateByUserId(userId: string): Cart {
-    const userCart = this.findByUserId(userId);
+  async findOrCreateByUserId(userId: string): Promise<Carts> {
+    const userCart = await this.findByUserId(userId);
 
     if (userCart) {
       return userCart;
@@ -34,22 +40,23 @@ export class CartService {
     return this.createByUserId(userId);
   }
 
-  updateByUserId(userId: string, { items }: Cart): Cart {
-    const { id, ...rest } = this.findOrCreateByUserId(userId);
-
+  async updateByUserId(userId: string, { cartItems }: Carts): Promise<Carts> {
+    const { id, ...rest } = await this.findOrCreateByUserId(userId);
+ 
     const updatedCart = {
       id,
       ...rest,
-      items: [ ...items ],
+      cartItems: [ ...cartItems ],
     }
 
-    this.userCarts[ userId ] = { ...updatedCart };
+    console.log('updatedCart', updatedCart);
+    await this.userCarts.save(updatedCart);
 
     return { ...updatedCart };
   }
 
-  removeByUserId(userId): void {
-    this.userCarts[ userId ] = null;
+  async removeByUserId(userId: string): Promise<void> {
+    await this.userCarts.delete({ userId })
   }
 
 }

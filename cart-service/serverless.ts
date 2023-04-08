@@ -28,7 +28,7 @@ const serverlessConfiguration: AWS = {
   },
   functions: {
     main: {
-      handler: 'dist/main.handler',
+      handler: 'dist/src/main.handler',
       events: [
         {
           http: {

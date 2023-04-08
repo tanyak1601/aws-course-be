@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "deploy": "sls deploy"
+    "deploy": "sls deploy",
+    "start:offline": "nest build && sls offline start"
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
@@ -28,8 +29,10 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.5.1",
+    "@nestjs/typeorm": "^7.1.5",
     "@vendia/serverless-express": "^4.10.1",
     "aws-lambda": "^1.0.7",
+    "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "helmet": "^4.2.0",
     "passport": "^0.4.1",
@@ -39,6 +42,8 @@
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
+    "typeorm": "^0.3.12",
+    "typeorm-naming-strategies": "^4.1.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -53,8 +58,8 @@
     "@types/passport-jwt": "^3.0.3",
     "@types/passport-local": "^1.0.33",
     "@types/supertest": "^2.0.8",
-    "@typescript-eslint/eslint-plugin": "3.9.1",
-    "@typescript-eslint/parser": "3.9.1",
+    "@typescript-eslint/eslint-plugin": "5.57.1",
+    "@typescript-eslint/parser": "5.57.1",
     "eslint": "7.7.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.20.1",
@@ -67,7 +72,7 @@
     "ts-loader": "^6.2.1",
     "ts-node": "9.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.7.4"
+    "typescript": "^5.0.4"
   },
   "jest": {
     "moduleFileExtensions": [
