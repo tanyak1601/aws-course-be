@@ -1,20 +1,15 @@
-import { CartItem } from '../../cart/models';
-
-export type Order = {
-  id?: string,
-  userId: string;
-  cartId: string;
-  items: CartItem[]
+export type CheckOutPayload = {
+  userId: string,
+  cartId: string,
   payment: {
     type: string,
-    address?: any,
-    creditCard?: any,
+    address?: string,
+    creditCard?: string,
   },
   delivery: {
     type: string,
-    address: any,
+    address: string,
   },
   comments: string,
-  status: string;
   total: number;
-}
+};

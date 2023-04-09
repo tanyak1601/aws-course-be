@@ -1,17 +1,13 @@
-export type Product = {
-  id: string,
-  title: string,
-  description: string,
-  price: number,
+export type CheckOutBody = {
+  payment: {
+    type: string,
+    address?: any,
+    creditCard?: any,
+  },
+  delivery: {
+    type: string,
+    address: any,
+  },
+  comments: string,
+  total: number;
 };
-
-
-export type CartItem = {
-  product: Product,
-  count: number,
-}
-
-export type Cart = {
-  id: string,
-  items: CartItem[],
-}

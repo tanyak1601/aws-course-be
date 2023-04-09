@@ -6,7 +6,7 @@ import { AppRequest, getUserIdFromQueryParams } from '../shared';
 
 import { CartService } from './services';
 import { Carts } from './entities'
-
+import { CheckOutBody } from './models';
 
 @Controller('api/profile/cart')
 export class CartController {
@@ -84,7 +84,7 @@ export class CartController {
   // @UseGuards(JwtAuthGuard)
   // @UseGuards(BasicAuthGuard)
   @Post('checkout')
-  async checkout(@Req() req: AppRequest, @Body() body: Carts) {
+  async checkout(@Req() req: AppRequest, @Body() body: CheckOutBody) {
     try {
       const userId = getUserIdFromQueryParams(req);
       const cart = await this.cartService.findByUserId(userId);
@@ -99,14 +99,13 @@ export class CartController {
         }
       }
 
-      const { id: cartId, cartItems } = cart;
+      const { id: cartId } = cart;
       const order = await this.orderService.create({
         ...body,
         userId,
         cartId,
-        cartItems,
       });
-      await this.cartService.removeByUserId(userId);
+      await this.cartService.softRemoveByUserId(userId);
 
       return {
         statusCode: HttpStatus.OK,

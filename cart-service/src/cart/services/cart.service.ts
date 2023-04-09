@@ -14,7 +14,7 @@ export class CartService {
   ) {}
 
   async findByUserId(userId: string): Promise<Carts> {
-    return this.userCarts.findOne({ where: { userId }, relations: ['cartItems'] });
+    return this.userCarts.findOne({ where: { userId, status: Status.OPEN }, relations: ['cartItems'] });
   }
 
   async createByUserId(userId: string): Promise<Carts> {
@@ -59,4 +59,11 @@ export class CartService {
     await this.userCarts.delete({ userId })
   }
 
+  async softRemoveByUserId(userId: string): Promise<void> {
+    const userCart = await this.findByUserId(userId);
+
+    if (userCart) {
+      await this.userCarts.update({ id: userCart.id}, { status: Status.ORDERED})
+    }
+  }
 }
