@@ -19,4 +19,7 @@ USER node
 FROM node:16-alpine as production
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
+
+ENV PORT=8080
+EXPOSE 8080
 CMD [ "node", "dist/main.js" ]
