@@ -1,0 +1,8 @@
+# compiled output
+/node_modules
+
+# IDE - VSCode
+.vscode/*
+
+.env
+.ebextension/options.config
